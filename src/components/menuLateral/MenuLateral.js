@@ -13,11 +13,9 @@ import { useDrawerContext } from "../../context/DrawerContext";
 import { useNavigate, useResolvedPath, useMatch } from "react-router-dom";
 
 const ListItemLink = ({ to, icon, label, onClick }) => {
-
-
   const navigate = useNavigate();
-  const resolvedPath = useResolvedPath(to)
-  const match = useMatch({ path: resolvedPath.pathname, end: false})
+  const resolvedPath = useResolvedPath(to);
+  const match = useMatch({ path: resolvedPath.pathname, end: false });
 
   const handleClick = () => {
     navigate(to);
@@ -68,18 +66,16 @@ export default function MenuLateral({ children }) {
           <Divider />
           <Box flex={1}>
             <List component="nav">
-
-              {drawerOptions.map((item)=>{
-                return(
+              {drawerOptions.map((item) => {
+                return (
                   <ListItemLink
-                  icon={item.icon}
-                  label={item.label}
-                  to={item.to}
-                  onClick={smDown ? toggleDrawer : undefined}
-                />
-                )
+                    icon={item.icon}
+                    label={item.label}
+                    to={item.to}
+                    onClick={smDown ? toggleDrawer : undefined}
+                  />
+                );
               })}
-             
             </List>
           </Box>
         </Box>
