@@ -11,9 +11,7 @@ export default function AppRoutes() {
         <Route
           path="/"
           element={
-            <Button variant="contained" color="primary" onClick={toggleDrawer}>
-              Toogel Theme
-            </Button>
+            <p>TEtse</p>
           }
         />
       </Routes>
