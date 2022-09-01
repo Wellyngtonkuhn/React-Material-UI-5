@@ -10,11 +10,35 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { useDrawerContext } from "../../context/DrawerContext";
 
+import { useNavigate, useResolvedPath, useMatch } from "react-router-dom";
+
+const ListItemLink = ({ to, icon, label, onClick }) => {
+
+
+  const navigate = useNavigate();
+  const resolvedPath = useResolvedPath(to)
+  const match = useMatch({ path: resolvedPath.pathname, end: false})
+
+  const handleClick = () => {
+    navigate(to);
+    onClick?.();
+  };
+
+  return (
+    <ListItemButton selected={match} onClick={handleClick}>
+      <ListItemIcon>
+        <Icon>{icon}</Icon>
+      </ListItemIcon>
+      <ListItemText primary={label} />
+    </ListItemButton>
+  );
+};
+
 export default function MenuLateral({ children }) {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const { isDrawerOpen, toggleDrawer } = useDrawerContext();
+  const { isDrawerOpen, toggleDrawer, drawerOptions } = useDrawerContext();
 
   return (
     <>
@@ -44,12 +68,18 @@ export default function MenuLateral({ children }) {
           <Divider />
           <Box flex={1}>
             <List component="nav">
-              <ListItemButton>
-                <ListItemIcon>
-                  <Icon>home</Icon>
-                </ListItemIcon>
-                <ListItemText primary="Página inicial" />
-              </ListItemButton>
+
+              {drawerOptions.map((item)=>{
+                return(
+                  <ListItemLink
+                  icon={item.icon}
+                  label={item.label}
+                  to={item.to}
+                  onClick={smDown ? toggleDrawer : undefined}
+                />
+                )
+              })}
+             
             </List>
           </Box>
         </Box>

@@ -13,6 +13,7 @@ export const useDrawerContext = () => {
 
 export default function DrawerProvider({ children }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [drawerOptions, setDrawerOptions] = useState([])
 
   const toggleDrawer = useCallback(() => {
     setIsDrawerOpen((drawer) => !drawer);
@@ -20,7 +21,7 @@ export default function DrawerProvider({ children }) {
 
   return (
     <>
-      <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawer }}>
+      <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawer, drawerOptions, setDrawerOptions }}>
         {children}
       </DrawerContext.Provider>
     </>
